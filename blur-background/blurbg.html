@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-sarif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+      }
+      .bg {
+        background: url("https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=689&q=80")
+          no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        position: absolute;
+        width: calc(100vw + 60px);
+        height: calc(100vh + 60px);
+        top: -30px;
+        left: -30px;
+        z-index: -1;
+        filter: blur(0px);
+      } 
+
+      .loading-text {
+        font-size: 50px;
+        color: #ffffff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="bg"></section>
+    <div class="loading-text">0%</div>
+    <script>
+        const loadText = document.querySelector(".loading-text");
+        const bg = document.querySelector(".bg");
+
+        let load = 0;
+        let int  = setInterval(blurring, 30);
+
+        function blurring() {
+            load++;
+
+            if(load > 99) {
+                clearInterval(int);
+            }
+
+            loadText.innerText = `${load}%`;
+            bg.style.filter = `blur(${scale(load, 0, 100, 30, 0)}px)`;
+        }
+
+        const scale = (num, in_min, in_max, out_min, out_max) => {
+            return ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+        }
+    </script>
+  </body>
+</html>
